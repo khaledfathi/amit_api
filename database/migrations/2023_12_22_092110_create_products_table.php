@@ -18,6 +18,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('image')->nullablel(false)->default(DEFAULT_PRODUCT_IMAGE); 
             $table->timestamps();
+            //fk 
+            $table->foreignId('category_id')->nullable(false)->references('id')->on('categories'); 
         });
     }
 

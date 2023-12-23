@@ -5,7 +5,7 @@ namespace App\Http\Requests\API\Product;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class StoreProductRequest extends FormRequest
+class FilterByPriceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,17 +22,13 @@ class StoreProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name'=>'required|max:255',
-            'price'=>'required|numeric',
-            'category_id'=>'required|numeric', 
-            'image'=> 'nullable|mimes:jpg,jpge,bmp,png,tiff,webp,heif|max:10000',
-        ];
+        $this->merge(['max_price' => $this->route('max_price')]);
+        return ['max_price' => 'numeric'];
     }
-       protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
     {
         throw new HttpResponseException(response()->json([
-            'message'=>'one or more fileds is invalid !',
+            'message' => 'Invalid ID',
             'errors' => $validator->errors()->all(),
         ], 400));
     }

@@ -5,11 +5,12 @@ namespace App\Http\Controllers\API;
 use App\Helper\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Product\DestroyProductRequest;
+use App\Http\Requests\API\Product\FilterByCategoryRequest;
+use App\Http\Requests\API\Product\FilterByPriceRequest;
 use App\Http\Requests\API\Product\ShowProductRequest;
 use App\Http\Requests\API\Product\StoreProductRequest;
 use App\Http\Requests\API\Product\UpdateProductRequest;
 use App\Repository\contracts\ProductRepositoryContract;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
@@ -37,6 +38,7 @@ class ProductController extends Controller
         $data = [
             'name' => $request->name,
             'price' => $request->price,
+            'category_id'=>$request->category_id
         ];
 
         if (isset($request->image)) {
@@ -67,10 +69,7 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request)
     {
-        $data = [
-            'name' => $request->name,
-            'price' => $request->price,
-        ];
+        $data = $request->all(); 
 
         if (isset($request->image)) {
             if ($request->image != DEFAULT_PRODUCT_IMAGE) {
@@ -107,4 +106,14 @@ class ProductController extends Controller
             $isDeleted ? true : false,
             $isDeleted ? 200 : 404);
     }
+    public function filterByCategory(FilterByCategoryRequest $request ){
+        $records = $this->productProvider->filterByCategory($request->category_id); 
+        return response()->json($records); 
+    }
+    public function filterByMaxPrice(FilterByPriceRequest $request ){
+        $records = $this->productProvider->filterByMaxPrice($request->max_price); 
+        return response()->json($records); 
+
+    }
+   
 }

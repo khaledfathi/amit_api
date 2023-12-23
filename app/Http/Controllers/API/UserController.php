@@ -9,9 +9,7 @@ use App\Http\Requests\API\User\ShowUserRequest;
 use App\Http\Requests\API\User\StoreUserRequest;
 use App\Http\Requests\API\User\UpdateUserRequest;
 use App\Repository\contracts\UserRepositoryContract;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -28,7 +26,7 @@ class UserController extends Controller
     {
         return response()->json(
             $this->userProvider->index(),
-            200);
+            200,);
 
     }
     /**
@@ -70,11 +68,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request)
     {
-        $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-        ];
+        $data = $request->all(); 
 
         if (isset($request->image)) {
             if ($request->image != DEFAULT_USER_IMAGE) {

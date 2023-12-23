@@ -9,7 +9,6 @@ use App\Http\Requests\API\Category\ShowCategoryRequest;
 use App\Http\Requests\API\Category\StoreCategoryRequest;
 use App\Http\Requests\API\Category\UpdateCategoryRequest;
 use App\Repository\contracts\CategoryRepositoryContract;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
@@ -69,11 +68,7 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request)
     {
-        $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-        ];
+        $data = $request->all(); 
 
         if (isset($request->image)){
             if ($request->image != DEFAULT_CATEGORY_IMAGE) {
