@@ -32,8 +32,8 @@
         <p>GET | http://ah.khaledfathi.com/api/Product/{id} | get Product by id </p>
         <p>DELETE | http://ah.khaledfathi.com/api/Product/{id} | delete Product by id</p>
         <p>POST | http://ah.khaledfathi.com/api/Product/update/{id} | update Product by id</p>
-        <p>GET | http://ah.khaledfathi.com/api/filter-by-category/{category_id} | get all product in category {category_id}</p>
-        <p>GET | http://ah.khaledfathi.com/api/Product/{max_price} | get product with  price less or equal {max_price}  </p>
+        <p>GET | http://ah.khaledfathi.com/api/filter-by/category/{category_id} | get all product in category {category_id}</p>
+        <p>GET | http://ah.khaledfathi.com/api/Product/filter-by/max-price/{max_price} | get product with  price less or equal {max_price}  </p>
     </div>    
 </body>
 </html>
